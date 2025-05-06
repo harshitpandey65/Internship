@@ -1,0 +1,156 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background-color: rgb(5, 13, 52);
+    background: linear-gradient(to right, #7c7c7e, #6470b5);
+    color: whitesmoke;
+}
+
+.container{
+    background-color: rgb(255, 255, 255);
+    /* background-color:transparent; */
+    width: 450px;
+    padding: 1.5rem;
+    color: #000000;
+    margin: 50px auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+form{
+    margin-top: 1rem;
+}
+
+.form-title{
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 1.3rem;
+    margin-bottom: 0.4rem;
+}
+
+input{
+    color: inherit;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+    padding-left: 1.5rem;
+    font-size: 15px;
+}
+
+.input-group{
+    padding:1% 0;
+    position:relative;
+    margin-bottom: 1.5rem;
+}
+
+.input-group i{
+    position:absolute;
+    color: #000000;
+}
+
+input:focus{
+    background-color: transparent;
+    outline: transparent;
+    border-bottom: 2px solid
+}
+input::placeholder{
+    color: transparent;
+}
+
+label{
+    color: #000000;
+    position: relative;
+    left: 1.2em;
+    top: -1.3em;
+    cursor: auto;
+    transition: 0.3s ease all;
+}
+
+input:focus~label,input:not(:placeholder-shown)~label{
+    top: -2.5em;
+    font-size: 15px;
+    color: #000000;
+}
+
+.recover{
+    text-align: right;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+}
+
+.recover a{
+    color: #00e200e1;
+    text-decoration: none;
+}
+
+.btn{
+    font-size: 1.1rem;
+    padding:8px 0;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    width: 100%;
+    background-color: rgb(105, 105, 193);
+    color: whitesmoke;
+    transition: 0.9s;
+}
+
+.or{
+    font-size: 15px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.icon{
+    text-align: center;
+}
+
+.icon i{
+    transition: 1s;
+    padding: 0.8rem, 1.5rem;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    border: 2px solid grey;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    padding-top: 7px;
+    cursor: pointer;
+    margin: 0 15px;
+}
+
+.links{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 0  4rem;
+    font-weight: bold;
+}
+a{
+    text-decoration: none;
+    color: #3722c2;
+}
+button{
+    background-color: transparent;
+    color: rgb(3, 3, 3);
+    cursor: pointer;
+    font-size: 15px;
+    height: 20px;
+    width: 70px;
+    border: none;
+    font-weight: bold;
+}
+
+button:hover{
+    text-decoration:underline;
+    color:blue;
+}   

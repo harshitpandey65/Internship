@@ -1,0 +1,188 @@
+<?php
+ SESSION_start();
+ include("connect.php");
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="homepage.css">
+    <script src="homepage.js"></script>
+    <title>homepage</title>
+</head>
+<body>
+    <?php
+        if(isset($_SESSION['user_id'])){
+            header("Location: dashboard.php");
+            exit();
+        }
+        
+       if(isset($_SESSION['email'])){
+        $email=$_SESSION['email'];
+        $query=mysqli_query($connect, "SELECT users.* FROM `users` WHERE users.email='$email'");
+        while($row=mysqli_fetch_array($query)){
+            echo $row['firstName'].' '.$row['lastName'];
+        }
+       }
+
+        // Handle User Login
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
+            $email = trim($_POST['email']);
+            $password = trim($_POST['password']);
+
+            $stmt = $conn->prepare("SELECT id, password FROM users WHERE email=?");
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $stmt->store_result();
+            
+            if ($stmt->num_rows > 0) {
+                $stmt->bind_result($id, $hashed_password);
+                $stmt->fetch();
+                
+                if (password_verify($password, $hashed_password)) {
+                    $_SESSION['user_id'] = $id;
+                    header("Location: dashboard.php");
+                    exit();
+                } else {
+                    echo "<script>alert('Invalid email or password');</script>";
+                }
+            } else {
+                echo "<script>alert('User not found');</script>";
+            }
+            $stmt->close();
+        }
+
+        // Handle User Registration (Signup)
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
+            $name = trim($_POST['name']);
+            $email = trim($_POST['email']);
+            $password = password_hash(trim($_POST['password']), PASSWORD_BCRYPT);
+
+            if (!empty($name) && !empty($email) && !empty($password)) {
+                $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
+                $stmt->bind_param("sss", $name, $email, $password);
+
+                if ($stmt->execute()) {
+                    echo "<script>alert('Registration successful! Please login.');</script>";
+                } else {
+                    echo "<script>alert('Error registering user!');</script>";
+                }
+                $stmt->close();
+            }
+        }
+    ?>
+      
+        <header class="header">
+            <div class="logo">EduConnect</div>
+                <nav class="nav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="index.php">Login</a></li>
+                </ul>
+                </nav>
+        </header>
+
+    
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Welcome to EduConnect</h1>
+                <div class="subtitle">
+                    <p>Your go-to platform for learning, connecting, and growing.</p>
+                </div>
+                
+                <button class="cta-btn">Get Started</button>
+            </div>
+        </section>
+        <section class="courses">
+            <h2>COURSE CATALOG</h2>
+            <div class="course_list">
+                <div class="course1" id="course">
+                    <h3>Course 1</h3>
+                    <p>Course Description</p>
+                    <button class="course_button">Enroll Now</button>
+                </div>
+                <div class="course2" id="course">
+                    <h3>Course 2</h3>
+                    <p>Course Description</p>
+                    <button class="course_button">Enroll Now</button>
+                </div>
+                <div class="course3" id="course">
+                    <h3>Course 3</h3>
+                    <p>Course Description</p>
+                    <button class="course_button">Enroll Now</button>
+                </div>
+                <div class="course4" id="course">
+                    <h3>Course 4</h3>
+                    <p>Course Description</p>
+                    <button class="course_button">Enroll Now</button>
+                </div>
+            </div>
+        </section>
+        <section id="features" class="features">
+            <h2>Our Features</h2>
+            <div class="feature-cards">
+            <div class="card">
+                <h3>Google Authentication</h3>
+                <p>Secure login with Google or OTP-based phone verification.</p>
+                <button class="feature_button">Go with our features</button>
+            </div>
+            <div class="card">
+                <h3>Profile Customization</h3>
+                <p>Add a custom avatar or upload your profile picture.</p>
+                <button class="feature_button">Go with our features</button>
+            </div>
+            <div class="card">
+                <h3>Video Questions</h3>
+                <p>Upload video-based questions with strict time and size limits.</p>
+                <button class="feature_button">Go with our features</button>
+            </div>
+            <div class="card">
+                <h3>Reward System</h3>
+                <p>Earn and transfer points for contributions and achievements.</p>
+                <button class="feature_button">Go with our features</button>
+            </div>
+            </div>
+
+            
+        </section>
+        <section id="about" class="about">
+            <h2>About Us</h2>
+            <div class="about-content">
+                <p>EduConnect is a platform that connects students and teachers from all over the world. We provide a wide range of courses and features to help you learn, grow, and connect with others. Our goal is to make learning fun, interactive, and accessible to everyone.</p>
+                <button class="about_button">Learn More</button>
+            </div>
+        
+        <section id="plans" class="plans">
+            <h2>Subscription Plans</h2>
+            <div class="plan-cards">
+            <div class="plan-card">
+                <h3>Free Plan</h3>
+                <p>1 question/day</p>
+            </div>
+            <div class="plan-card">
+                <h3>Bronze Plan</h3>
+                <p>₹100/month - 5 questions/day</p>
+            </div>
+            <div class="plan-card">
+                <h3>Silver Plan</h3>
+                <p>₹300/month - 10 questions/day</p>
+            </div>
+            <div class="plan-card">
+                <h3>Gold Plan</h3>
+                <p>₹1000/month - Unlimited questions</p>
+            </div>
+            </div>
+        </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 EduConnect. All rights reserved.</p>
+    </footer>`
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Reward System</title>
+    <link rel="stylesheet" href="rewards.css">
+    <script src="rewards.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>Community Reward System</h1>
+    </header>
+
+    <section class="profile">
+        <h2>Welcome, <span id="userName">John Doe</span>!</h2>
+        <p>Email: <span id="userEmail">johndoe@example.com</span></p>
+        <p>Points: <span id="userPoints">50</span></p>
+    </section>
+
+    <section class="question-answer">
+        <h2>Post an Answer</h2>
+        <form id="answerForm">
+            <textarea id="answerText" placeholder="Write your answer..." required></textarea>
+            <button type="submit">Submit Answer</button>
+        </form>
+
+        <h3>Answers</h3>
+        <div id="answersContainer"></div>
+    </section>
+
+    <section class="transfer">
+        <h2>Transfer Points</h2>
+        <form id="transferForm">
+            <input type="email" id="receiverEmail" placeholder="Receiver's Email" required>
+            <input type="number" id="transferPoints" placeholder="Points to Transfer" required>
+            <button type="submit">Transfer</button>
+        </form>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
